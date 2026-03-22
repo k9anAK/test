@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<!-- Объявляем тип документа HTML5 -->
+<html lang="ru">
+<!-- Открываем корневой элемент с языком русский -->
+
+<head>
+    <!-- Метаданные страницы -->
+    <meta charset="UTF-8">
+    <!-- Кодировка UTF-8 для русских символов -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Адаптивность для мобильных -->
+    <title>Возьмём персика?</title>
+    <!-- Заголовок страницы -->
+
+    <style>
+        /* CSS-стили для оформления */
+        * {
+            /* Сброс отступов для всех элементов */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Учитывать padding в размерах */
+        }
+
+        body {
+            /* Стили для тела страницы */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Современный шрифт */
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 50%, #ee5a6f 100%);
+            /* Персиково-розовый градиент */
+            min-height: 100vh;
+            /* Высота во весь экран */
+            display: flex;
+            /* Flexbox для центрирования */
+            justify-content: center;
+            /* По горизонтали */
+            align-items: center;
+            /* По вертикали */
+            overflow: hidden;
+            /* Скрыть прокрутку */
+        }
+
+        .container {
+            /* Контейнер для контента */
+            text-align: center;
+            /* Центрирование текста */
+            background: rgba(255, 255, 255, 0.95);
+            /* Почти непрозрачный белый фон */
+            padding: 50px;
+            /* Внутренние отступы */
+            border-radius: 30px;
+            /* Закруглённые углы */
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            /* Тень */
+            max-width: 500px;
+            /* Максимальная ширина */
+        }
+
+        .cat-image {
+            /* Контейнер для изображения кота */
+            margin-bottom: 30px;
+            /* Отступ снизу */
+        }
+
+        .cat-image img {
+            /* Само изображение */
+            width: 280px;
+            /* Ширина картинки */
+            height: 280px;
+            /* Высота картинки */
+            object-fit: cover;
+            /* Заполнить без искажений */
+            border-radius: 50%;
+            /* Круглая форма */
+            border: 5px solid #ff9a56;
+            /* Персиковая рамка */
+            box-shadow: 0 10px 30px rgba(255, 154, 86, 0.4);
+            /* Персиковая тень */
+        }
+
+        h1 {
+            /* Заголовок с вопросом */
+            color: #333;
+            /* Тёмно-серый цвет */
+            font-size: 32px;
+            /* Размер шрифта */
+            margin-bottom: 40px;
+            /* Отступ снизу */
+        }
+
+        .buttons {
+            /* Контейнер для кнопок */
+            display: flex;
+            /* Flexbox */
+            justify-content: center;
+            /* По центру */
+            gap: 20px;
+            /* Расстояние между кнопками */
+            position: relative;
+            /* Для позиционирования */
+            min-height: 60px;
+            /* Минимальная высота */
+        }
+
+        .btn {
+            /* Стили кнопок */
+            padding: 15px 50px;
+            /* Внутренние отступы */
+            font-size: 20px;
+            /* Размер шрифта */
+            border: none;
+            /* Без рамки */
+            border-radius: 25px;
+            /* Закруглённые края */
+            cursor: pointer;
+            /* Курсор-рука */
+            transition: all 0.3s;
+            /* Плавная анимация */
+            font-weight: bold;
+            /* Жирный шрифт */
+        }
+
+        .btn-yes {
+            /* Кнопка "Да" */
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            /* Персиковый градиент */
+            color: white;
+            /* Белый текст */
+        }
+
+        .btn-yes:hover {
+            /* Кнопка "Да" при наведении */
+            transform: scale(1.1);
+            /* Увеличить */
+            box-shadow: 0 10px 30px rgba(255, 154, 86, 0.5);
+            /* Усилить тень */
+        }
+
+        .btn-no {
+            /* Кнопка "Нет" */
+            background: #e0e0e0;
+            /* Серый фон */
+            color: #666;
+            /* Серый текст */
+            position: relative;
+            /* Для перемещения */
+        }
+
+        .success-message {
+            /* Сообщение об успехе (скрыто по умолчанию) */
+            display: none;
+            /* Скрыть */
+        }
+
+        .success-message.show {
+            /* Показанное сообщение */
+            display: block;
+            /* Показать */
+        }
+
+        .success-message h1 {
+            /* Заголовок успеха */
+            color: #ff6b6b;
+            /* Розово-красный цвет */
+            font-size: 48px;
+            /* Крупный размер */
+            animation: bounce 0.5s ease infinite alternate;
+            /* Анимация прыжков */
+        }
+
+        .success-message .cat-image img {
+            /* Кот при успехе */
+            animation: happy 0.5s ease;
+            /* Анимация счастья */
+        }
+
+        @keyframes bounce {
+            /* Анимация прыжков */
+            from {
+                transform: translateY(0);
+                /* Исходная позиция */
+            }
+            to {
+                transform: translateY(-20px);
+                /* Подпрыгнуть */
+            }
+        }
+
+        @keyframes happy {
+            /* Анимация счастья */
+            0%, 100% {
+                transform: scale(1);
+                /* Исходный размер */
+            }
+            50% {
+                transform: scale(1.1);
+                /* Увеличить */
+            }
+        }
+
+        .hearts {
+            /* Контейнер для сердечек */
+            position: fixed;
+            /* Фиксированная позиция */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* На весь экран */
+            pointer-events: none;
+            /* Не перехватывать клики */
+            z-index: 1000;
+            /* Поверх всего */
+        }
+
+        .heart {
+            /* Сердечко */
+            position: absolute;
+            /* Абсолютная позиция */
+            font-size: 30px;
+            /* Размер */
+            animation: float 3s ease-in infinite;
+            /* Анимация полёта */
+            opacity: 0;
+            /* Прозрачное */
+        }
+
+        @keyframes float {
+            /* Анимация полёта сердечек */
+            0% {
+                transform: translateY(100vh) scale(0);
+                /* Снизу, маленький */
+                opacity: 1;
+                /* Видимое */
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                /* Наверх, нормальный */
+                opacity: 0;
+                /* Исчезает */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Видимая часть страницы -->
+
+    <div class="container">
+        <!-- Главный контейнер -->
+
+        <!-- Секция с вопросом (показывается сначала) -->
+        <div id="question-section">
+            <div class="cat-image">
+                <!-- Контейнер для фото кота -->
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1927?w=400&h=400&fit=crop" 
+                     alt="Рыжий кот">
+                <!-- Фотография рыжего кота с Unsplash -->
+            </div>
+
+            <h1>Возьмём персика?</h1>
+            <!-- Вопрос пользователю -->
+
+            <div class="buttons">
+                <!-- Контейнер кнопок -->
+                <button class="btn btn-yes" onclick="sayYes()">Да</button>
+                <!-- Кнопка "Да" с обработчиком -->
+                <button class="btn btn-no" id="btn-no" onmouseover="dodge()" onclick="dodge()">Нет</button>
+                <!-- Кнопка "Нет" убегает при наведении и клике -->
+            </div>
+        </div>
+
+        <!-- Секция успеха (показывается после "Да") -->
+        <div id="success-section" class="success-message">
+            <!-- Сообщение об успехе -->
+            <div class="cat-image">
+                <!-- Кот счастлив -->
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1927?w=400&h=400&fit=crop" 
+                     alt="Счастливый кот">
+                <!-- То же фото кота -->
+            </div>
+
+            <h1>УРА! 🎉</h1>
+            <!-- Радостная надпись -->
+        </div>
+
+    </div>
+
+    <!-- Контейнер для сердечек -->
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+        /* JavaScript для интерактивности */
+
+        function dodge() {
+            /* Функция убегания кнопки "Нет" */
+            const btnNo = document.getElementById('btn-no');
+            /* Получить кнопку по id */
+
+            const container = document.querySelector('.container');
+            /* Получить контейнер для ограничений */
+            const containerRect = container.getBoundingClientRect();
+            /* Границы контейнера */
+
+            const maxX = containerRect.width - btnNo.offsetWidth - 20;
+            /* Максимальное смещение по X */
+            const maxY = containerRect.height - btnNo.offsetHeight - 20;
+            /* Максимальное смещение по Y */
+
+            const randomX = Math.random() * maxX - (maxX / 2);
+            /* Случайное смещение по X */
+            const randomY = Math.random() * maxY - (maxY / 2);
+            /* Случайное смещение по Y */
+
+            btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            /* Применить смещение */
+            btnNo.style.position = 'relative';
+            /* Относительное позиционирование */
+        }
+
+        function sayYes() {
+            /* Функция нажатия "Да" */
+            document.getElementById('question-section').style.display = 'none';
+            /* Скрыть секцию с вопросом */
+            document.getElementById('success-section').classList.add('show');
+            /* Показать секцию успеха */
+
+            createHearts();
+            /* Запустить сердечки */
+        }
+
+        function createHearts() {
+            /* Функция создания сердечек */
+            const heartsContainer = document.getElementById('hearts');
+            /* Контейнер сердечек */
+
+            for (let i = 0; i < 30; i++) {
+                /* Создать 30 сердечек */
+                setTimeout(() => {
+                    /* Задержка для каждого */
+                    const heart = document.createElement('div');
+                    /* Создать элемент */
+                    heart.classList.add('heart');
+                    /* Добавить класс */
+                    heart.textContent = '❤️';
+                    /* Символ сердечка */
+                    heart.style.left = Math.random() * 100 + '%';
+                    /* Случайная позиция по X */
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    /* Случайная задержка */
+                    heartsContainer.appendChild(heart);
+                    /* Добавить в контейнер */
+
+                    setTimeout(() => heart.remove(), 6000);
+                    /* Удалить через 6 секунд */
+                }, i * 100);
+                /* Каждые 100мс */
+            }
+        }
+    </script>
+
+</body>
+<!-- Конец видимой части -->
+
+</html>
+<!-- Конец документа -->
